@@ -16,6 +16,7 @@ import {useStyles} from "./style";
 import HomePage from "./components/HomePage";
 import ChileTable from "./components/ChileTable";
 import clsx from "clsx";
+import UserPage from './components/UserPage';
 
 
 function Footer() {
