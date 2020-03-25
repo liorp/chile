@@ -15,6 +15,7 @@ import './App.css';
 import {useStyles} from "./style";
 import HomePage from "./components/HomePage";
 import ChileTable from "./components/ChileTable";
+import CreateNewProduct from "./components/CreateNewProduct";
 import clsx from "clsx";
 
 
@@ -52,6 +53,7 @@ function App({store}) {
                                     <Redirect exact from="/" to="/home"/>
                                     <Route path="/home" component={HomePage}/>
                                     <Route path="/table" component={ChileTable}/>
+                                    <Route path="/create-new-product" component={CreateNewProduct} />
                                 </Switch>
                                 <Footer/>
                             </div>

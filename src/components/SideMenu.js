@@ -12,7 +12,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import List from "@material-ui/core/List";
 import {useStyles} from "../style";
 import Link from '@material-ui/core/Link';
@@ -32,7 +32,7 @@ const mainMenuItems = (
 const secondaryMenuItems = (
     <div>
         <ListSubheader inset>Quick Access</ListSubheader>
-        <ListItemLink to="/add-a-camera" primary="Add a camera" icon={<AddAPhotoIcon/>}/>
+        <ListItemLink to="/create-new-product" primary="Create New Product" icon={<AddShoppingCartIcon/>}/>
     </div>
 );
 
