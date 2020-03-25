@@ -52,6 +52,7 @@ function App({store}) {
                                     <Redirect exact from="/" to="/home"/>
                                     <Route path="/home" component={HomePage}/>
                                     <Route path="/table" component={ChileTable}/>
+                                    <Route path="/user" component={UserPage}/>
                                 </Switch>
                                 <Footer/>
                             </div>
