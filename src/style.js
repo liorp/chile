@@ -24,6 +24,9 @@ export const styles = theme => ({
   formControl: {
     minWidth: '120px',
   },
+  checkBoxFormControlLabel: {
+    marginTop: theme.spacing(1.5),
+  },
   // necessary for content to be below app bar
   appBarSpacer: theme.mixins.toolbar,
   navigationContent: {

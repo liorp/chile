@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useStyles} from "../style";
 import {connect} from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import ChileArg from './ChileArg';
+import ChileForm from './ChileForm';
 
 
 function mapStateToProps(state, ownProps) {
     return {state, ownProps};
 }
 
-function HomePage() {
+function HomePage(props) {
     const classes = useStyles();
+    const [val, setVal] = useState(0);
 
     return (
         <main className={classes.content}>
@@ -37,12 +39,16 @@ function HomePage() {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
+        <ChileArg name='my int' type='int' value={val} changeValue={setVal}/>
         <ChileArg name='my int' type='int' />
-        <ChileArg name='my str' type='str' required={true}/>
-        <ChileArg name='my disabled str' type='str' enabled={false}/>
+        <ChileArg name='my str' type='str' required={true} value={''} />
+        <ChileArg name='my disabled str' type='str' enabled={false} />
         <ChileArg name='my bool' type='bool' />
         <ChileArg name='my enum' type='enum' options={['aa', 'bb', 'cc']}/>
         <ChileArg name='my blah' type='blah' />
+        <br />
+        <ChileForm args={[{type: 'int', value: 2, name:'aaa'},
+                          {type: 'bool', value: true, name:'indeed?'}]}/>
       </main>
     );
 }
