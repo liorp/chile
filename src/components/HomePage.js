@@ -2,6 +2,7 @@ import React from 'react';
 import {useStyles} from "../style";
 import {connect} from "react-redux";
 import Typography from "@material-ui/core/Typography";
+import ChileArg from './ChileArg';
 
 
 function mapStateToProps(state, ownProps) {
@@ -36,6 +37,12 @@ function HomePage() {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
+        <ChileArg name='my int' type='int' />
+        <ChileArg name='my str' type='str' required={true}/>
+        <ChileArg name='my disabled str' type='str' enabled={false}/>
+        <ChileArg name='my bool' type='bool' />
+        <ChileArg name='my enum' type='enum' options={['aa', 'bb', 'cc']}/>
+        <ChileArg name='my blah' type='blah' />
       </main>
     );
 }
