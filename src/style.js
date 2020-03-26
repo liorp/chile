@@ -21,6 +21,10 @@ export const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  card: {
+    margin: '16px',
+    padding: '16px',
+  },
   // necessary for content to be below app bar
   appBarSpacer: theme.mixins.toolbar,
   navigationContent: {
