@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 
-const ProductsTable = (chileDialog) => ({
+const ProductsTable = (chileDialog, history) => ({
     title: "Products",
     columns: [
         {title: "Adı", field: "name"},
@@ -36,20 +36,28 @@ const ProductsTable = (chileDialog) => ({
             icon: 'visibility',
             tooltip: 'View Detail',
             onClick: (event, rowData) => {
-                const children = (
-                    <Fragment>
-                        <p>I also support custom body elements</p>
-                    </Fragment>
-                );
                 // Do save operation
                 chileDialog({
                     title: 'Header of modal',
                     content: `I have access to the rowData. This includes ${JSON.stringify(rowData)}`,
-                    children: children,
-                    dialogProps: {
-                        children: children
+                    children: (
+                        <Fragment>
+                            <p>I also support custom body elements</p>
+                        </Fragment>
+                    ),
+                    actions: {
+                        cancel: {
+                            text: 'Cancel'
+                        },
+                        confirm: {
+                            text: 'OK'
+                        },
                     }
-                }).then(() => { console.log('Dialog ran'); }).catch(() => { console.log('Dialog cancel'); });
+                }).then(() => {
+                    console.log('Dialog ran');
+                }).catch(() => {
+                    console.log('Dialog cancel');
+                });
             }
         },
         {
@@ -57,6 +65,7 @@ const ProductsTable = (chileDialog) => ({
             tooltip: 'View Detail',
             onClick: (event, rowData) => {
                 // Do save operation
+                history.push(`/product/${rowData.id}`);
             }
         },
         {

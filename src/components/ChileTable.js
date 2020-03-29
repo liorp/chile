@@ -1,7 +1,7 @@
 import React from 'react';
 import MaterialTable from "material-table";
 import {useStyles} from "../style";
-import {useLocation} from "react-router-dom";
+import {useLocation, useHistory} from "react-router-dom";
 import tableNameToComponent from "./Tables";
 import {useChileDialog} from "./ChileDialog";
 
@@ -9,10 +9,11 @@ import {useChileDialog} from "./ChileDialog";
 function ChileTable() {
     const classes = useStyles();
     const location = useLocation();
+    const history = useHistory();
     const dialog = useChileDialog();
 
     const searchParams = new URLSearchParams(location.search);
-    const table = tableNameToComponent[searchParams.get("name")](dialog);
+    const table = tableNameToComponent[searchParams.get("name")](dialog, history);
     for (let column of table.columns) {
         if (!column.cellStyle) {
             column.cellStyle = {
@@ -31,8 +32,8 @@ function ChileTable() {
             <MaterialTable
                 columns={table.columns}
                 data={[
-                    {name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63},
-                    {name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63}
+                    {id: 1, name: "Mehmet1", surname: "Baran", birthYear: 1987, birthCity: 63},
+                    {id: 2, name: "Mehmet2", surname: "Baran", birthYear: 1987, birthCity: 63}
                 ]}
                 actions={table.actions}
                 title={table.title}

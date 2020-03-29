@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,6 +16,7 @@ import {useStyles} from "./style";
 import HomePage from "./components/HomePage";
 import ChileTable from "./components/ChileTable";
 import {ChileDialogProvider} from "./components/ChileDialog";
+import Product from "./components/Product";
 
 
 function Footer() {
@@ -53,6 +54,7 @@ function App({store}) {
                                         <Redirect exact from="/" to="/home"/>
                                         <Route path="/home" component={HomePage}/>
                                         <Route path="/table" component={ChileTable}/>
+                                        <Route path="/product/:id" component={Product}/>
                                     </Switch>
                                     <Footer/>
                                 </div>
