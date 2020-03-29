@@ -12,7 +12,7 @@ function Product() {
     useEffect(() => {
         history.replace(`/product/${id}`, {pageName: `Product ${id} Nickname`});
         async function fetchProduct() {
-            const result = await API.get(
+            await API.get(
             ).then(res => {
                 const product = res.data;
                 setProduct(product);
