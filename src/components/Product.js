@@ -1,33 +1,88 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {useParams, useHistory} from "react-router-dom";
-import API from "../utils/API";
+import {fetchResource} from "../utils/API";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ChileError from "./ChileError";
+import ChileLoading from "./ChileLoading";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
+import {useStyles} from "../style";
 
+function sleeper(ms) {
+    return function (x) {
+        return new Promise(resolve => setTimeout(() => resolve(x), ms));
+    };
+}
 
 function Product() {
+    const classes = useStyles();
+
     let {id} = useParams();
     let history = useHistory();
     const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         history.replace(`/product/${id}`, {pageName: `Product ${id} Nickname`});
+
         async function fetchProduct() {
-            await API.get(
-            ).then(res => {
-                const product = res.data;
-                setProduct(product);
-            });
+            setLoading(true);
+            try {
+                return await fetchResource('posts', 1);
+            } finally {
+
+            }
         }
-        fetchProduct().then(() => {history.replace(`/product/${id}`, {pageName: `Product ${product ? product.id : ''} Nickname`});});
-    }, [id]);
+
+        fetchProduct().then(sleeper(3000)).then((product) => {
+            setProduct(product);
+            history.replace(`/product/${id}`, {pageName: `Product ${product ? product.id : ''} Nickname`});
+            setLoading(false);
+        }).catch((e) => {
+            setError(e);
+        });
+    }, [id, history]);
 
     return (
-        <div>
-            This is a product id {id}.
-            Dump of product:
+        <Fragment>
+            <div style={{display: 'flex', height: '100%', justifyContent: 'center'}}>
+            {error && (
+                <ChileError error={error}/>
+            )}
 
-            {product ? JSON.stringify(product) : <CircularProgress />}
-        </div>
+            {loading && (
+                <ChileLoading indeterminate={true} resourceName={'product'}/>
+            )}
+
+            {(!error && !loading) && (
+                <Card className={classes.infoCard}>
+                  <CardContent>
+                    <Typography color="textSecondary" gutterBottom>
+                      Word of the Day
+                    </Typography>
+                    <Typography variant="h5" component="h2">
+
+                    </Typography>
+                    <Typography color="textSecondary">
+                      adjective
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      well meaning and kindly.
+                      <br />
+                      {'"a benevolent smile"'}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">Learn More</Button>
+                  </CardActions>
+                </Card>
+            )}
+            </div>
+        </Fragment>
     );
 }
 

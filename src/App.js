@@ -19,19 +19,6 @@ import {ChileDialogProvider} from "./components/ChileDialog";
 import Product from "./components/Product";
 
 
-function Footer() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © LP '}
-            <Link color="inherit" href="https://chile.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
 const darkTheme = createMuiTheme({
     palette: {
         type: 'dark',
@@ -56,7 +43,6 @@ function App({store}) {
                                         <Route path="/table" component={ChileTable}/>
                                         <Route path="/product/:id" component={Product}/>
                                     </Switch>
-                                    <Footer/>
                                 </div>
                             </Navigation>
                         </div>

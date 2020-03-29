@@ -1,9 +1,12 @@
-// utils/API.js
-
 import axios from "axios";
 
 // TODO: Change baseURL
-export default axios.create({
-  baseURL: "https://randomuser.me/api/",
+const api = axios.create({
+  baseURL: "https://jsonplaceholder.typicode.com/",
   responseType: "json"
 });
+
+export const fetchResource = async (resource, id) => {
+  const response = await api.get(`/${resource}/${id}`);
+  return response.data;
+};
