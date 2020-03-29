@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { createStore } from 'redux'
+import {createStore} from 'redux'
 
 import './index.css';
 import App from './App';
@@ -15,10 +15,10 @@ const store = createStore(
 );
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App store={store} />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <App store={store}/>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,6 +1,8 @@
 import {makeStyles} from "@material-ui/core/styles";
 
 const drawerWidth = 240;
+const defaultPadding = '16px';
+
 export const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -41,6 +43,6 @@ export const useStyles = makeStyles(theme => ({
     }
   },
   chileTable: {
-    padding: ['16px', '16px', '16px', '16px'].join(' '),
+    padding: Array(4).fill(defaultPadding).join(' '),
   }
 }));

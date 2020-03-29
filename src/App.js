@@ -15,7 +15,7 @@ import './App.css';
 import {useStyles} from "./style";
 import HomePage from "./components/HomePage";
 import ChileTable from "./components/ChileTable";
-import clsx from "clsx";
+import {ChileDialogProvider} from "./components/ChileDialog";
 
 
 function Footer() {
@@ -44,19 +44,21 @@ function App({store}) {
             <Router>
                 <ThemeProvider theme={darkTheme}>
                     <CssBaseline/>
-                    <div className={classes.root}>
-                        <Navigation>
-                            <div className={classes.navigationContent}>
-                                <div className={classes.appBarSpacer} />
-                                <Switch>
-                                    <Redirect exact from="/" to="/home"/>
-                                    <Route path="/home" component={HomePage}/>
-                                    <Route path="/table" component={ChileTable}/>
-                                </Switch>
-                                <Footer/>
-                            </div>
-                        </Navigation>
-                    </div>
+                    <ChileDialogProvider>
+                        <div className={classes.root}>
+                            <Navigation>
+                                <div className={classes.navigationContent}>
+                                    <div className={classes.appBarSpacer}/>
+                                    <Switch>
+                                        <Redirect exact from="/" to="/home"/>
+                                        <Route path="/home" component={HomePage}/>
+                                        <Route path="/table" component={ChileTable}/>
+                                    </Switch>
+                                    <Footer/>
+                                </div>
+                            </Navigation>
+                        </div>
+                    </ChileDialogProvider>
                 </ThemeProvider>
             </Router>
         </Provider>
