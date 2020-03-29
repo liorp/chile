@@ -1,7 +1,7 @@
 import {makeStyles} from "@material-ui/core/styles";
 
 const drawerWidth = 240;
-export const useStyles = makeStyles(theme => ({
+export const styles = theme => ({
   root: {
     display: 'flex',
   },
@@ -25,6 +25,12 @@ export const useStyles = makeStyles(theme => ({
     margin: '16px',
     padding: '16px',
   },
+  formControl: {
+    minWidth: '120px',
+  },
+  checkBoxFormControlLabel: {
+    marginTop: theme.spacing(1.5),
+  },
   // necessary for content to be below app bar
   appBarSpacer: theme.mixins.toolbar,
   navigationContent: {
@@ -47,4 +53,6 @@ export const useStyles = makeStyles(theme => ({
   chileTable: {
     padding: ['16px', '16px', '16px', '16px'].join(' '),
   }
-}));
+});
+
+export const useStyles = makeStyles(styles);
