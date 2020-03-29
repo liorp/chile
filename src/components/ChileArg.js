@@ -7,34 +7,35 @@ import { styles } from '../style';
 
 class ChileArg extends Component {
     render() {
-        const { classes, name, type, value, enabled, required, options, changeValue } = this.props;
+        const { classes, name, nickname, type, value, enabled, required, options, onValueChange } = this.props;
+        const label = nickname || name;
         switch (type) {
             case 'int':
                 return (
-                    <TextField label={name}
+                    <TextField label={label}
                                type="number"
                                value={value}
                                required={required}
                                disabled={enabled == null ? false : !enabled }
-                               onChange={e => changeValue(e.target.value)} />
+                               onChange={e => onValueChange(e.target.value)} />
                 );
             case 'str': 
                 return (
-                    <TextField label={name}
+                    <TextField label={label}
                                value={value}
                                required={required}
                                disabled={enabled == null ? false : !enabled}
-                               onChange={e => changeValue(e.target.value)} />
+                               onChange={e => onValueChange(e.target.value)} />
                 );
             case 'bool':
                 return (
                     <FormControlLabel className={classes.checkBoxFormControlLabel}
-                                      label={name}
+                                      label={label}
                                       control={
                         <Checkbox checked={value}
                                   required={required}
                                   disabled={enabled == null ? false : !enabled}
-                                  onChange={e => changeValue(e.target.checked)} />
+                                  onChange={e => onValueChange(e.target.checked)} />
                                 } />
                 );
             case 'enum':
@@ -42,11 +43,11 @@ class ChileArg extends Component {
                     (opt, i) => <MenuItem value={opt} key={i}>{opt}</MenuItem>)
                 return (
                     <FormControl className={classes.formControl}>
-                        <InputLabel>{name}</InputLabel>
+                        <InputLabel>{label}</InputLabel>
                         <Select value={value ?? ''}
                                 required={required}
                                 disabled={enabled == null ? false : !enabled}
-                                onChange={e => changeValue(e.target.value)}>
+                                onChange={e => onValueChange(e.target.value)}>
                             {optionElements}
                         </Select>
                     </FormControl>

@@ -39,16 +39,13 @@ function HomePage(props) {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
-        <ChileArg name='my int' type='int' value={val} changeValue={setVal}/>
-        <ChileArg name='my int' type='int' />
-        <ChileArg name='my str' type='str' required={true} value={''} />
-        <ChileArg name='my disabled str' type='str' enabled={false} />
-        <ChileArg name='my bool' type='bool' />
-        <ChileArg name='my enum' type='enum' options={['aa', 'bb', 'cc']}/>
-        <ChileArg name='my blah' type='blah' />
         <br />
-        <ChileForm args={[{type: 'int', value: 2, name:'aaa'},
-                          {type: 'bool', value: true, name:'indeed?'}]}/>
+        <ChileForm args={[{type: 'int', value: 2, name: 'aaa'},
+                          {type: 'bool', value: true, name: 'sure'},
+                          {type: 'str', name: 'indeed', required: true},
+                          {type: 'bool', value: true, name: 'really'},
+                          {type: 'enum', name: 'anEnum', nickname: 'Just An Enum', options: [1, 2, 3]}]}
+                   onFormUpdate={state => console.log(state)} />
       </main>
     );
 }

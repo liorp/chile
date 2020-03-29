@@ -14,16 +14,22 @@ class ChileForm extends Component {
     getArgs = () => this.props.args.map((arg, i) => 
             <ChileArg key={i}
                       name={arg.name}
+                      nickname={arg.nickname}
                       type={arg.type}
                       value={this.state[[arg.name]]}
                       enabled={arg.enabled}
                       required={arg.required}
                       options={arg.options}
-                      changeValue={val=>this.setState({[arg.name]: val})} />
+                      onValueChange={val => this.setState({[arg.name]: val},
+                        () => this.props.onFormUpdate(this.state))} />
         );
 
     render() {
-        return this.getArgs();
+        return (
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+                {this.getArgs()}
+            </div>
+        );
     }
 }
 
