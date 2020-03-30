@@ -12,7 +12,7 @@ import Navigation from './components/Navigation';
 import {Provider} from 'react-redux'
 
 import './App.css';
-import {useStyles} from "./style";
+import {useStyles} from "./styles/app";
 import HomePage from "./components/HomePage";
 import ChileTable from "./components/ChileTable";
 import {ChileDialogProvider} from "./components/ChileDialog";

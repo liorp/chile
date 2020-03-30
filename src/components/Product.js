@@ -8,7 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import {useStyles} from "../style";
+import {useStyles} from "../styles/product";
 import Slide from "@material-ui/core/Slide";
 
 function sleeper(ms) {

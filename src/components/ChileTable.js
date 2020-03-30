@@ -1,20 +1,21 @@
 import React from 'react';
 import MaterialTable from "material-table";
-import {useStyles} from "../style";
+import {useStyles} from "../styles/chileTable";
 import {useLocation, useHistory} from "react-router-dom";
 import tableNameToComponent from "./Tables";
 import {useChileDialog} from "./ChileDialog";
 import Grow from "@material-ui/core/Grow";
 
 
-function ChileTable() {
+function ChileTable({tableName}) {
     const classes = useStyles();
     const location = useLocation();
     const history = useHistory();
     const dialog = useChileDialog();
 
     const searchParams = new URLSearchParams(location.search);
-    const table = tableNameToComponent[searchParams.get("name")](dialog, history);
+    const realTableName = searchParams.get("name") || tableName;
+    const table = tableNameToComponent[realTableName](dialog, history);
     for (let column of table.columns) {
         if (!column.cellStyle) {
             column.cellStyle = {
@@ -29,8 +30,8 @@ function ChileTable() {
     }
 
     return (
-        <div className={classes.chileTable}>
-            <Grow in={true}>
+        <Grow in={true}>
+            <div className={classes.root}>
                 <MaterialTable
                     columns={table.columns}
                     data={[
@@ -45,8 +46,8 @@ function ChileTable() {
                         ...table.options
                     }}
                 />
-            </Grow>
-        </div>
+            </div>
+        </Grow>
     );
 }
 

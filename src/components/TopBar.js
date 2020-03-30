@@ -9,7 +9,7 @@ import AppBar from "@material-ui/core/AppBar";
 import PropTypes from "prop-types";
 import { useLocation } from 'react-router-dom';
 import capitalize from "@material-ui/core/utils/capitalize";
-import {useStyles} from "../style";
+import {useStyles} from "../styles/topBar";
 
 
 function mapStateToProps(state, ownProps) {
@@ -32,7 +32,7 @@ function TopBar({ onSideMenuClose, onSideMenuOpen, sideMenuOpen }) {
     }
     return (
         <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar className={classes.toolbar}>
+            <Toolbar>
                 <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                     { pageName }
                 </Typography>

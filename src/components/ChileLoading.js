@@ -1,6 +1,6 @@
 import React from 'react';
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {useStyles} from "../style";
+import {useStyles} from "../styles/chileLoading";
 import Grow from "@material-ui/core/Grow";
 
 const ChileLoading = ({ indeterminate, resourceName }) => {
@@ -8,7 +8,7 @@ const ChileLoading = ({ indeterminate, resourceName }) => {
 
     return (
         <Grow direction="up" in={true} mountOnEnter unmountOnExit>
-            <div className={classes.chileLoading}>
+            <div className={classes.root}>
                 {indeterminate && (
                     <CircularProgress size={60} />
                 )}

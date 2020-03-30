@@ -8,7 +8,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import List from "@material-ui/core/List";
-import {useStyles} from "../style";
+import {useStyles} from "../styles/sideBar";
 import ListItemLink from "./LinkListItem";
 import Button from "@material-ui/core/Button";
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -17,6 +17,9 @@ import SettingsIcon from '@material-ui/icons/Settings';
 const mainMenuItems = (
     <div>
         <ListSubheader inset>Main Menu</ListSubheader>
+        <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon/>}/>
+        <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon/>}/>
+        <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon/>}/>
         <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon/>}/>
     </div>
 );
