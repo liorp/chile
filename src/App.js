@@ -5,8 +5,6 @@ import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom
 
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import Navigation from './components/Navigation';
 
 import {Provider} from 'react-redux'

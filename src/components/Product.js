@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {useStyles} from "../styles/product";
-import Slide from "@material-ui/core/Slide";
+import Grow from "@material-ui/core/Grow";
 
 function sleeper(ms) {
     return function (x) {
@@ -38,7 +38,7 @@ function Product() {
             }
         }
 
-        fetchProduct().then(sleeper(3000)).then((product) => {
+        fetchProduct().then(sleeper(2000)).then((product) => {
             setProduct(product);
             history.replace(`/product/${id}`, {pageName: `Product ${product ? product.id : ''} Nickname`});
             setLoading(false);
@@ -50,39 +50,31 @@ function Product() {
     return (
         <Fragment>
             <div style={{display: 'flex', height: '100%', justifyContent: 'center'}}>
-            {error && (
-                <ChileError error={error}/>
-            )}
+                {error && (
+                    <ChileError error={error}/>
+                )}
 
-            {loading && (
-                <ChileLoading indeterminate={true} resourceName={'product'}/>
-            )}
+                {loading && (
+                    <ChileLoading indeterminate={true} resourceName={'product'}/>
+                )}
 
-            {(!error && !loading) && (
-                <Slide in={true} direction={'up'}>
-                    <Card className={classes.infoCard}>
-                  <CardContent>
-                    <Typography color="textSecondary" gutterBottom>
-                      Word of the Day
-                    </Typography>
-                    <Typography variant="h5" component="h2">
-
-                    </Typography>
-                    <Typography color="textSecondary">
-                      adjective
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                      well meaning and kindly.
-                      <br />
-                      {'"a benevolent smile"'}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Learn More</Button>
-                  </CardActions>
-                </Card>
-                </Slide>
-            )}
+                {(!error && !loading) && (
+                    <Grow in={true} direction={'up'}>
+                        <Card className={classes.infoCard}>
+                            <CardContent>
+                                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                    {product.title}
+                                </Typography>
+                                <Typography variant="body2" component="p">
+                                    {product.body}
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small">Add Another Product</Button>
+                            </CardActions>
+                        </Card>
+                    </Grow>
+                )}
             </div>
         </Fragment>
     );
