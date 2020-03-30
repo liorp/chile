@@ -6,6 +6,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
   },
+  formControl: {
+    minWidth: '120px',
+  },
+  checkBoxFormControlLabel: {
+    marginTop: theme.spacing(1.5),
+  },
   // necessary for content to be below app bar
   appBarSpacer: theme.mixins.toolbar,
   navigationContent: {
