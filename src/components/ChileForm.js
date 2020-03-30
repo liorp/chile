@@ -4,7 +4,6 @@ import ChileArg from './ChileArg';
 
 
 function ChileForm(props) {
-    console.log('renderrrr')
 
     const initialArgs = props.args.reduce((state, arg) => {
         state[[arg.name]] = arg.value ?? null;
