@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button } from '@material-ui/core';
 import ChileArg from './ChileArg'
 
 class ChileForm extends Component {
@@ -24,10 +25,20 @@ class ChileForm extends Component {
                 () => this.props.onFormUpdate({ ...this.state }))} />
     );
 
+    isValid = () => {
+        return this.props.args.filter(a => a.required &&
+            (this.state[[a.name]] == null || this.state[[a.name]] === '')).length == 0;
+    }
+
     render() {
+        const { completeButton, onComplete } = this.props;
         return (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {this.getArgs()}
+                {completeButton
+                    ? <Button variant="outlined" disabled={!this.isValid()}
+                    onClick={()=>onComplete(this.state)}>{completeButton}</Button>
+                    : ''}
             </div>
         );
     }

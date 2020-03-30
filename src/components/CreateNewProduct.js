@@ -1,46 +1,53 @@
-import React from 'react';
-import {useStyles} from "../style";
-import {Card, CardHeader, FormControl, Select, MenuItem, InputLabel}
-    from '@material-ui/core';
+import React, { useState } from 'react';
+import { useStyles } from "../style";
+import { Card, CardHeader, Divider } from '@material-ui/core';
+import ChileForm from './ChileForm';
 
 
-const mockProductTypes = ['Camera', 'TV', 'Phone'];
 const mockProductFields = {
-    Camera: {
-        model: 'str',
-        price: 'float',
-        weight: 'int',
-        pixels: 'int',
-        color: 'str',
-    },
-    TV: {
-        model: 'str',
-        price: 'float',
-        weight: 'int',
-        pixels: 'int',
-    },
-    Phone: {
-        model: 'str',
-        price: 'float',
-        weight: 'int',
-        pixels: 'int',
-        isIPhone: 'boolean',
-    },
+    Camera: [
+        {name: 'model', type: 'str', required: true},
+        {name: 'price', type: 'int'},
+        {name: 'weight', type: 'int'},
+        {name: 'pixels', type: 'int'},
+        {name: 'color', type: 'enum', options: ['red', 'blue', 'transparent']}
+    ],
+    TV: [
+        {name: 'model', type: 'str'},
+        {name: 'price', type: 'int'},
+        {name: 'pixels', type: 'int'},
+        {name: 'madeInChina', type: 'bool', nickname: 'Made in Chile'}
+    ],
+    Phone: [
+        {name: 'model', type: 'str'},
+        {name: 'price', type: 'int', required: true},
+        {name: 'weight', type: 'int'},
+        {name: 'pixels', type: 'int'},
+        {name: 'isIPhone', type: 'bool', nickname: 'Is IPhone'}
+    ],
 };
 
 function CreateNewProduct() {
     const classes = useStyles();
-    const productTypes = mockProductTypes.map((type, i) => 
-        <MenuItem value={type} id={i}>{type}</MenuItem>);
+    const [selectedType, setSelectedType] = useState('');
+
     return (
         <Card className={classes.card}>
             <CardHeader title="Create a new product" />
-            <FormControl>
-                <InputLabel>Product Type</InputLabel>
-                <Select value={mockProductTypes[0]}>
-                    {productTypes}
-                </Select>
-            </FormControl>
+
+            <ChileForm args={[{type: 'enum', name: 'productType', nickname: 'Product Type',
+                           options: Object.keys(mockProductFields)}]}
+                   onFormUpdate={selectedValue => setSelectedType(selectedValue.productType)} />
+
+            <br/>
+            <Divider variant="middle" />
+
+            {selectedType ? <ChileForm args={mockProductFields[[selectedType]]}
+                                       onFormUpdate={console.log}
+                                       completeButton="Create"
+                                       onComplete={args=>console.log('=>' + JSON.stringify(args))}
+                                       key={selectedType} />
+                          : ''}
         </Card>
     );
 }
