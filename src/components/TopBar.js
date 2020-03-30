@@ -10,10 +10,16 @@ import PropTypes from "prop-types";
 import { useLocation } from 'react-router-dom';
 import capitalize from "@material-ui/core/utils/capitalize";
 import {useStyles} from "../styles/topBar";
+import Button from "@material-ui/core/Button";
+import { Link } from 'react-router-dom';
 
 
 function mapStateToProps(state, ownProps) {
     return { state, ownProps };
+}
+
+function getCurrentUsername() {
+    return 'Guy';
 }
 
 function TopBar({ onSideMenuClose, onSideMenuOpen, sideMenuOpen }) {
@@ -30,6 +36,8 @@ function TopBar({ onSideMenuClose, onSideMenuOpen, sideMenuOpen }) {
     } else {
         pageName = capitalize(location.pathname.slice(1).split('-').join(' '));
     }
+    const username = getCurrentUsername();
+
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
@@ -37,11 +45,20 @@ function TopBar({ onSideMenuClose, onSideMenuOpen, sideMenuOpen }) {
                     { pageName }
                 </Typography>
                 <span style={{flexGrow: 2}}/>
-                <IconButton color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <NotificationsIcon/>
-                    </Badge>
-                </IconButton>
+                <div className={classes.rightSubMenu}>
+                    <div>
+                        <Button size="small">
+                            <Link to={`/user/${username}`} class={classes.userPageLink}>
+                                {capitalize(username)}
+                            </Link>
+                        </Button>
+                    </div>
+                    <IconButton color="inherit">
+                        <Badge badgeContent={4} color="secondary">
+                            <NotificationsIcon/>
+                        </Badge>
+                    </IconButton>
+                </div>
             </Toolbar>
         </AppBar>
     );
