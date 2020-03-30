@@ -1,7 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {useParams, useHistory} from "react-router-dom";
 import {fetchResource} from "../utils/API";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import ChileError from "./ChileError";
 import ChileLoading from "./ChileLoading";
 import Card from "@material-ui/core/Card";
@@ -10,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {useStyles} from "../style";
+import Slide from "@material-ui/core/Slide";
 
 function sleeper(ms) {
     return function (x) {
@@ -59,7 +59,8 @@ function Product() {
             )}
 
             {(!error && !loading) && (
-                <Card className={classes.infoCard}>
+                <Slide in={true} direction={'up'}>
+                    <Card className={classes.infoCard}>
                   <CardContent>
                     <Typography color="textSecondary" gutterBottom>
                       Word of the Day
@@ -80,6 +81,7 @@ function Product() {
                     <Button size="small">Learn More</Button>
                   </CardActions>
                 </Card>
+                </Slide>
             )}
             </div>
         </Fragment>

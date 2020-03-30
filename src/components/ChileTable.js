@@ -4,6 +4,7 @@ import {useStyles} from "../style";
 import {useLocation, useHistory} from "react-router-dom";
 import tableNameToComponent from "./Tables";
 import {useChileDialog} from "./ChileDialog";
+import Grow from "@material-ui/core/Grow";
 
 
 function ChileTable() {
@@ -29,20 +30,22 @@ function ChileTable() {
 
     return (
         <div className={classes.chileTable}>
-            <MaterialTable
-                columns={table.columns}
-                data={[
-                    {id: 1, name: "Mehmet1", surname: "Baran", birthYear: 1987, birthCity: 63},
-                    {id: 2, name: "Mehmet2", surname: "Baran", birthYear: 1987, birthCity: 63}
-                ]}
-                actions={table.actions}
-                title={table.title}
-                options={{
-                    actionsColumnIndex: -1,
-                    pageSizeOptions: [5, 15, 40],
-                    ...table.options
-                }}
-            />
+            <Grow in={true}>
+                <MaterialTable
+                    columns={table.columns}
+                    data={[
+                        {id: 1, name: "Mehmet1", surname: "Baran", birthYear: 1987, birthCity: 63},
+                        {id: 2, name: "Mehmet2", surname: "Baran", birthYear: 1987, birthCity: 63}
+                    ]}
+                    actions={table.actions}
+                    title={table.title}
+                    options={{
+                        actionsColumnIndex: -1,
+                        pageSizeOptions: [5, 15, 40],
+                        ...table.options
+                    }}
+                />
+            </Grow>
         </div>
     );
 }
