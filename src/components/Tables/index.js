@@ -1,7 +1,7 @@
-import ProductsTable from "./ProductsTable";
+import ProductsTable from './ProductsTable';
 
 const tableNameToComponent = {
-    products: ProductsTable
+  products: ProductsTable,
 };
 
 export default tableNameToComponent;
