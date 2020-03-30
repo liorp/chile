@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import AppBar from "@material-ui/core/AppBar";
-import PropTypes from "prop-types";
 import { useLocation } from 'react-router-dom';
 import capitalize from "@material-ui/core/utils/capitalize";
 import {useStyles} from "../styles/topBar";
@@ -16,7 +15,7 @@ function mapStateToProps(state, ownProps) {
     return { state, ownProps };
 }
 
-function TopBar({ onSideMenuClose, onSideMenuOpen, sideMenuOpen }) {
+function TopBar() {
     const classes = useStyles();
     const location = useLocation();
     let pageName = 'Chile';
@@ -46,12 +45,6 @@ function TopBar({ onSideMenuClose, onSideMenuOpen, sideMenuOpen }) {
         </AppBar>
     );
 }
-
-TopBar.propTypes = {
-    onSideMenuClose: PropTypes.func.isRequired,
-    onSideMenuOpen: PropTypes.func.isRequired,
-    sideMenuOpen: PropTypes.bool.isRequired
-};
 
 export default connect(
     mapStateToProps,

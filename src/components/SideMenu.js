@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 import Drawer from "@material-ui/core/Drawer";
-import PropTypes from "prop-types";
 import Divider from "@material-ui/core/Divider";
 import {NavLink as RouterNavLink} from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -12,6 +11,11 @@ import {useStyles} from "../styles/sideBar";
 import ListItemLink from "./LinkListItem";
 import Button from "@material-ui/core/Button";
 import SettingsIcon from '@material-ui/icons/Settings';
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import {useChileDialog} from "./ChileDialog";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import packageJson from '../../package.json';
 
 
 const mainMenuItems = (
@@ -35,8 +39,31 @@ function mapStateToProps(state, ownProps) {
     return {state, ownProps};
 }
 
-function SideMenu({sideMenuOpen}) {
+function SideMenu() {
     const classes = useStyles();
+    const chileDialog = useChileDialog();
+
+    const openSettings = () => () => {
+        chileDialog({
+            title: 'Settings',
+            content: `Set Chile settings`,
+            children: (
+                <Fragment>
+                    <p>I also support custom body elements</p>
+                </Fragment>
+            ),
+            actions: {
+                confirm: {
+                    text: 'Close'
+                },
+            }
+        }).then(() => {
+            console.log('Dialog ran');
+        }).catch(() => {
+            console.log('Dialog cancel');
+        });
+    };
+
     return (
         <Drawer
             className={classes.drawer}
@@ -61,15 +88,21 @@ function SideMenu({sideMenuOpen}) {
             <Divider/>
             <span style={{flexGrow: 2}}/>
             <List>
-                <ListItemLink to="/settings" primary="Settings" icon={<SettingsIcon/>}/>
+                <li>
+                    <ListItem button onClick={openSettings()}>
+                        <ListItemIcon><SettingsIcon/></ListItemIcon>
+                        <ListItemText>Settings</ListItemText>
+                    </ListItem>
+                </li>
+                <li>
+                    <ListItem>
+                        <ListItemText>v{packageJson.version} ({process.env.REACT_APP_ENVIRONMENT})</ListItemText>
+                    </ListItem>
+                </li>
             </List>
         </Drawer>
     );
 }
-
-SideMenu.propTypes = {
-    sideMenuOpen: PropTypes.bool.isRequired
-};
 
 export default connect(
     mapStateToProps,
