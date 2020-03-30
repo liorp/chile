@@ -1,21 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Drawer from "@material-ui/core/Drawer";
-import clsx from "clsx";
 import PropTypes from "prop-types";
 import Divider from "@material-ui/core/Divider";
 import {NavLink as RouterNavLink} from "react-router-dom";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import PeopleIcon from "@material-ui/icons/People";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import List from "@material-ui/core/List";
-import {useStyles} from "../style";
-import Link from '@material-ui/core/Link';
+import {useStyles} from "../styles/sideBar";
 import ListItemLink from "./LinkListItem";
 import Button from "@material-ui/core/Button";
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -24,8 +17,10 @@ import SettingsIcon from '@material-ui/icons/Settings';
 const mainMenuItems = (
     <div>
         <ListSubheader inset>Main Menu</ListSubheader>
-        <ListItemLink to="/table?name=orders" primary="Orders" icon={<ShoppingCartIcon/>}/>
-        <ListItemLink to="/table?name=products" primary="Products" icon={<PeopleIcon/>}/>
+        <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon/>}/>
+        <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon/>}/>
+        <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon/>}/>
+        <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon/>}/>
     </div>
 );
 
@@ -64,7 +59,7 @@ function SideMenu({sideMenuOpen}) {
             <Divider/>
             <List>{secondaryMenuItems}</List>
             <Divider/>
-            <span style={{flexGrow: 2}}></span>
+            <span style={{flexGrow: 2}}/>
             <List>
                 <ListItemLink to="/settings" primary="Settings" icon={<SettingsIcon/>}/>
             </List>
