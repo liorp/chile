@@ -36,10 +36,12 @@ function CreateNewProduct() {
       <CardHeader title="Create a new product" />
 
       <ChileForm
-        args={[{
+        initialArgs={[{
           type: 'enum', name: 'productType', nickname: 'Product Type', options: Object.keys(mockProductFields),
         }]}
-        onFormUpdate={(selectedValue) => setSelectedType(selectedValue.productType)}
+        onFormUpdate={(selectedValue) => {
+          setSelectedType(selectedValue.productType);
+        }}
       />
 
       <br />
@@ -47,7 +49,7 @@ function CreateNewProduct() {
 
       {selectedType ? (
         <ChileForm
-          args={mockProductFields[[selectedType]]}
+          initialArgs={mockProductFields[[selectedType]]}
           onFormUpdate={console.log}
           completeButton="Create"
           onComplete={(args) => console.log(`=> ${JSON.stringify(args)}`)}

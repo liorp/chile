@@ -8,12 +8,13 @@ function ChileForm({
   initialArgs, onFormUpdate, completeButton, onComplete,
 }) {
   // TODO: Refactor the initial args to set the argument default value (perhaps from server?)
-  const [args, setArgs] = useState(initialArgs);
+  const [args, setArgs] = useState(initialArgs.reduce((state, arg) => (
+    { ...state, [arg.name]: arg.value || null }), {}));
 
   // TODO: Maybe use formik?
-  useEffect(() => onFormUpdate({ ...args }));
+  useEffect(() => onFormUpdate(args));
 
-  const getChileArgs = () => args.map((arg) => (
+  const getChileArgs = () => initialArgs.map((arg) => (
     <ChileArg
       key={arg.name}
       name={arg.name}
@@ -23,11 +24,13 @@ function ChileForm({
       enabled={arg.enabled}
       required={arg.required}
       options={arg.options}
-      onValueChange={(val) => setArgs({ ...args, [arg.name]: val })}
+      onValueChange={(val) => {
+        setArgs({ ...args, [arg.name]: val });
+      }}
     />
   ));
 
-  const isValid = () => args.filter((a) => a.required
+  const isValid = () => initialArgs.filter((a) => a.required
       && (args[[a.name]] == null || args[[a.name]] === '')).length === 0;
 
   const getCompleteButton = () => (completeButton
@@ -52,9 +55,9 @@ function ChileForm({
 
 // TODO: Doc this properly
 ChileForm.propTypes = {
-  initialArgs: PropTypes.string.isRequired,
+  initialArgs: PropTypes.arrayOf(PropTypes.shape(ChileArg.propTypes)).isRequired,
   onFormUpdate: PropTypes.func.isRequired,
-  completeButton: PropTypes.element.isRequired,
+  completeButton: PropTypes.string.isRequired,
   onComplete: PropTypes.func.isRequired,
 };
 
