@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import ChileArg from './ChileArg/ChileArg';
 
 
-function ChileForm(props) {
-  const initialArgs = props.args.reduce((state, arg) => {
-    state[[arg.name]] = arg.value || null;
-    return state;
-  }, {});
+function ChileForm({
+  initialArgs, onFormUpdate, completeButton, onComplete,
+}) {
+  // TODO: Refactor the initial args to set the argument default value (perhaps from server?)
   const [args, setArgs] = useState(initialArgs);
 
-  useEffect(() => props.onFormUpdate({ ...args }));
+  // TODO: Maybe use formik?
+  useEffect(() => onFormUpdate({ ...args }));
 
-  const getChileArgs = () => props.args.map((arg, i) =>
+  const getChileArgs = () => args.map((arg) => (
     <ChileArg
-      key={i}
+      key={arg.name}
       name={arg.name}
       nickname={arg.nickname}
       type={arg.type}
@@ -22,25 +23,24 @@ function ChileForm(props) {
       enabled={arg.enabled}
       required={arg.required}
       options={arg.options}
-      onValueChange={val => setArgs({ ...args, [arg.name]: val })}
+      onValueChange={(val) => setArgs({ ...args, [arg.name]: val })}
     />
-  );
+  ));
 
-  const getCompleteButton = () => {
-    const { completeButton, onComplete } = props;
-    return completeButton
-      ? <Button variant="outlined"
-                disabled={!isValid()}
-                onClick={() => onComplete(args)}>
+  const isValid = () => args.filter((a) => a.required
+      && (args[[a.name]] == null || args[[a.name]] === '')).length === 0;
+
+  const getCompleteButton = () => (completeButton
+    ? (
+      <Button
+        variant="outlined"
+        disabled={!isValid()}
+        onClick={() => onComplete(args)}
+      >
         {completeButton}
       </Button>
-      : '';
-  };
-
-  const isValid = () => {
-    return props.args.filter(a => a.required &&
-      (args[[a.name]] == null || args[[a.name]] === '')).length == 0;
-  };
+    )
+    : '');
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -49,5 +49,13 @@ function ChileForm(props) {
     </div>
   );
 }
+
+// TODO: Doc this properly
+ChileForm.propTypes = {
+  initialArgs: PropTypes.string.isRequired,
+  onFormUpdate: PropTypes.func.isRequired,
+  completeButton: PropTypes.element.isRequired,
+  onComplete: PropTypes.func.isRequired,
+};
 
 export default ChileForm;

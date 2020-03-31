@@ -30,7 +30,7 @@
     "testwatch": "react-scripts test",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src",
+    "lint": "eslint ./src --ext .js,.jsx",
     "prepush": "npm run lint && npm test"
   },
   "eslintConfig": {

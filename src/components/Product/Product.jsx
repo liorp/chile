@@ -12,7 +12,7 @@ import ChileError from '../ChileError';
 import api from '../../utils';
 
 function sleeper(ms) {
-  return function (x) {
+  return function sleeping(x) {
     return new Promise((resolve) => setTimeout(() => resolve(x), ms));
   };
 }

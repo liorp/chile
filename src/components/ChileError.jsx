@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ChileError = ({ error }) => (
   <div>
@@ -7,6 +8,10 @@ const ChileError = ({ error }) => (
   </div>
 );
 
-
+ChileError.propTypes = {
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default ChileError;

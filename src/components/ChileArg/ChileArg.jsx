@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
-  TextField, Select, MenuItem, Checkbox, FormControlLabel, InputLabel, FormControl
+  TextField, Select, MenuItem, Checkbox, FormControlLabel, InputLabel, FormControl,
 } from '@material-ui/core';
 import useStyles from './style';
 
 
-function ChileArg({ name, nickname, type, value, enabled, required, options, onValueChange }) {
+function ChileArg({
+  name, nickname, type, value, enabled, required, options, onValueChange,
+}) {
   const classes = useStyles();
   const label = nickname || name;
 
@@ -68,5 +71,18 @@ function ChileArg({ name, nickname, type, value, enabled, required, options, onV
       return <span>InvalidArgType!!!</span>;
   }
 }
+
+
+ChileArg.propTypes = {
+  name: PropTypes.string.isRequired,
+  nickname: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  enabled: PropTypes.bool.isRequired,
+  required: PropTypes.bool.isRequired,
+  options: PropTypes.string.isRequired,
+  onValueChange: PropTypes.func.isRequired,
+};
+
 
 export default ChileArg;

@@ -8,7 +8,9 @@ import PropTypes from 'prop-types';
 
 function ListItemLink({ icon, primary, to }) {
   const renderLink = React.useMemo(
-    () => React.forwardRef((itemProps, ref) => <RouterLink to={to} ref={ref} {...itemProps} />),
+    // We need the props inside the forwardRef element declaration
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    () => React.forwardRef((props, ref) => <RouterLink to={to} ref={ref} {...props} />),
     [to],
   );
 
