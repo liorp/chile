@@ -4,6 +4,7 @@ import useStyles from './style';
 import ChileForm from '../ChileForm';
 
 
+// TODO: fetch from server
 const mockProductFields = {
   Camera: [
     { name: 'model', type: 'str', required: true },
@@ -39,9 +40,7 @@ function CreateNewProduct() {
         initialArgs={[{
           type: 'enum', name: 'productType', nickname: 'Product Type', options: Object.keys(mockProductFields),
         }]}
-        onFormUpdate={(selectedValue) => {
-          setSelectedType(selectedValue.productType);
-        }}
+        onFormUpdate={(selectedValue) => setSelectedType(selectedValue.productType)}
       />
 
       <br />

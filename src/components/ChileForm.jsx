@@ -24,9 +24,7 @@ function ChileForm({
       enabled={arg.enabled}
       required={arg.required}
       options={arg.options}
-      onValueChange={(val) => {
-        setArgs({ ...args, [arg.name]: val });
-      }}
+      onValueChange={(val) => setArgs({ ...args, [arg.name]: val })}
     />
   ));
 
