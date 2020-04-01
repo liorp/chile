@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import PropTypes from 'prop-types';
-import useStyles from './style';
 import ChileTable from '../ChileTable';
+import useStyles from './style';
 
 function mapStateToProps(state, ownProps) {
   return { state, ownProps };
