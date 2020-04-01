@@ -67,6 +67,12 @@ function TopBar() {
   return (
     <AppBar position="fixed" className={classes.appBar} color="paper">
       <Toolbar>
+        <IconButton ref={anchorRef} color={notificationsPaneOpened ? 'primary' : 'inherit'} onClick={handleNotificationsPaneToggle}>
+          <Badge badgeContent={4} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <span className={classes.spacer} />
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           { pageName }
         </Typography>

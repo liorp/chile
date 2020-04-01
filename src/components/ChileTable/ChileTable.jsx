@@ -46,7 +46,7 @@ function ChileTable({ tableName }) {
               id: 2, name: 'Mehmet2', surname: 'Baran', birthYear: 1987, birthCity: 63,
             },
           ]}
-          actions={table.actions}
+          actions={table.actions || []}
           title={table.title}
           options={{
             actionsColumnIndex: -1,

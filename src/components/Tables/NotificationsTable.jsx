@@ -27,6 +27,7 @@ const NotificationsTable = () => ({
     header: false,
     filtering: false,
     search: false,
+    pageSizeOptions: [10],
   },
 });
 
