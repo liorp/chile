@@ -17,6 +17,7 @@ import HomePage from './components/HomePage/HomePage';
 import ChileTable from './components/ChileTable/ChileTable';
 import { ChileDialogProvider } from './components/ChileDialog';
 import Product from './components/Product/Product';
+import CreateNewProduct from './components/CreateNewProduct/CreateNewProduct';
 
 
 const darkTheme = createMuiTheme({
@@ -42,6 +43,7 @@ function App({ store }) {
                     <Route path="/home" component={HomePage} />
                     <Route path="/table" component={ChileTable} />
                     <Route path="/product/:id" component={Product} />
+                    <Route path="/create-new-product" component={CreateNewProduct} />
                   </Switch>
                 </div>
               </Navigation>

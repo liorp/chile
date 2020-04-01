@@ -56,7 +56,8 @@ function ChileArg({
         <FormControl className={classes.formControl}>
           <InputLabel>{label}</InputLabel>
           <Select
-            value={value}
+            // should be {value ?? ''} but lint doesn't like it and it can't be disabled!
+            value={value != null ? value : ''}
             required={required}
             disabled={enabled == null ? false : !enabled}
             onChange={(e) => onValueChange(e.target.value)}
@@ -72,17 +73,23 @@ function ChileArg({
   }
 }
 
-
 ChileArg.propTypes = {
   name: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  enabled: PropTypes.bool.isRequired,
-  required: PropTypes.bool.isRequired,
-  options: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  value: PropTypes.any,
+  enabled: PropTypes.bool,
+  required: PropTypes.bool,
+  options: PropTypes.string,
   onValueChange: PropTypes.func.isRequired,
 };
 
+ChileArg.defaultProps = {
+  value: null,
+  enabled: null,
+  required: null,
+  options: null,
+};
 
 export default ChileArg;
