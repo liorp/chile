@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MaterialTable from 'material-table';
 import { useLocation, useHistory } from 'react-router-dom';
 import Grow from '@material-ui/core/Grow';
+import TablePagination from '@material-ui/core/TablePagination';
 import tableNameToComponent from '../Tables';
 import { useChileDialog } from '../ChileDialog';
 import useStyles from './style';
@@ -45,12 +46,18 @@ function ChileTable({ tableName }) {
               id: 2, name: 'Mehmet2', surname: 'Baran', birthYear: 1987, birthCity: 63,
             },
           ]}
-          actions={table.actions}
+          actions={table.actions || []}
           title={table.title}
           options={{
             actionsColumnIndex: -1,
             pageSizeOptions: [5, 15, 40],
             ...table.options,
+          }}
+          components={{
+            Pagination: (props) => (
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              <TablePagination {...props} className={classes.pagination} />
+            ),
           }}
         />
       </div>
