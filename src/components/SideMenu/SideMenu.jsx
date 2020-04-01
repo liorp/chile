@@ -4,6 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import LocalShipping from '@material-ui/icons/LocalShipping';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import List from '@material-ui/core/List';
@@ -33,6 +34,7 @@ const secondaryMenuItems = (
     <ListSubheader inset>Quick Access</ListSubheader>
     <ListItemLink to="/add-a-camera" primary="Add a camera" icon={<AddAPhotoIcon />} />
     <ListItemLink to="/create-new-product" primary="Create A New Product" icon={<ShoppingCartIcon />} />
+    <ListItemLink to="/new-delivery" primary="New Delivery" icon={<LocalShipping />} />
   </div>
 );
 

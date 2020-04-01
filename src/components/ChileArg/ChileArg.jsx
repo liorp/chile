@@ -42,7 +42,7 @@ function ChileArg({
           control={
             (
               <Checkbox
-                checked={value}
+                checked={value || false}
                 required={required}
                 disabled={enabled == null ? false : !enabled}
                 onChange={(e) => onValueChange(e.target.checked)}
