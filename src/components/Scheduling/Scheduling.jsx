@@ -5,16 +5,16 @@ import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
 import DatePicker from 'react-date-picker';
 import TimePicker from 'react-time-picker';
 import useStyles from './style';
+import ChileArg from '../ChileArg/ChileArg';
 
 
 function OneTimeScheduling({ value, onChange }) {
   return (
     <div>
-      <p>OneTime</p>
-      <span>Choose Date </span>
+      <span>Date </span>
       <DatePicker value={value.date} onChange={(date) => onChange({ date })} />
       <br />
-      <span>Choose Hour </span>
+      <span>Hour</span>
       <TimePicker value={value.time} onChange={(time) => onChange({ time })} disableClock />
     </div>
   );
@@ -26,9 +26,29 @@ OneTimeScheduling.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
 };
-function RepeatingScheduling() {
-  return <p>Repeating</p>;
+function RepeatingScheduling({ value, onChange }) {
+  return (
+    <div>
+      <OneTimeScheduling value={value} onChange={onChange} />
+      <br />
+      <ChileArg
+        name="interval"
+        type="int"
+        value={value.interval}
+        nickname="Interval (in days)"
+        onValueChange={(interval) => onChange({ interval })}
+      />
+    </div>
+  );
 }
+RepeatingScheduling.propTypes = {
+  value: PropTypes.shape({
+    date: PropTypes.instanceOf(Date),
+    time: PropTypes.instanceOf(Date),
+    interval: PropTypes.number,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 function OnNewSupplyScheduling() {
   return <p>OnNewSupply</p>;
 }
@@ -89,7 +109,9 @@ function Scheduling({ onChange }) {
 
   const handlePartialChange = (val) => setSchedulingValue((current) => ({ ...current, ...val }));
 
-  useEffect(() => (onChange || (() => {}))({ schedulingType, schedulingValue }));
+  useEffect(() => setSchedulingValue(schedulingType.defaultScheduling()), [schedulingType]);
+  useEffect(() => (onChange || ((a) => { console.log(a); }))({ schedulingType, schedulingValue }),
+    [onChange, schedulingType, schedulingValue]);
 
   return (
     <Card className={classes.card}>

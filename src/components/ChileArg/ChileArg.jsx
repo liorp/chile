@@ -21,7 +21,7 @@ function ChileArg({
           value={value}
           required={required}
           disabled={enabled == null ? false : !enabled}
-          onChange={(e) => onValueChange(e.target.value)}
+          onChange={(e) => onValueChange(parseInt(e.target.value, 10))}
         />
       );
     case 'str':
