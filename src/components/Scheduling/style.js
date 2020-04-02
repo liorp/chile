@@ -4,7 +4,6 @@ const useStyles = makeStyles((theme) => ({
   card: {
     margin: theme.spacing(2),
     padding: theme.spacing(2),
-    overflow: 'visible',
   },
 }));
 

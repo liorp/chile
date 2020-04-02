@@ -1,23 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader } from '@material-ui/core';
+import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
-import DatePicker from 'react-date-picker';
-import TimePicker from 'react-time-picker';
 import useStyles from './style';
 import ChileArg from '../ChileArg/ChileArg';
 
 
 function OneTimeScheduling({ value, onChange }) {
   return (
-    <div>
-      <span>Date </span>
-      <DatePicker value={value.date} onChange={(date) => onChange({ date })} />
-      <br />
-      <span>Hour</span>
-      <TimePicker value={value.time} onChange={(time) => onChange({ time })} disableClock />
-    </div>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <KeyboardDatePicker
+        label="Date"
+        value={value.date}
+        format="dd/MM/yyyy"
+        margin="normal"
+        variant="inline"
+        onChange={(date) => onChange({ date })}
+      />
+      <KeyboardTimePicker
+        label="Time"
+        value={value.time}
+        margin="normal"
+        variant="inline"
+        onChange={(time) => onChange({ time })}
+      />
+    </MuiPickersUtilsProvider>
   );
+  // return (
+  //   <div>
+  //     <span>Date </span>
+  //     <DatePicker value={value.date} onChange={(date) => onChange({ date })} />
+  //     <br />
+  //     <span>Hour</span>
+  //     <TimePicker value={value.time} onChange={(time) => onChange({ time })} disableClock />
+  //   </div>
+  // );
 }
 OneTimeScheduling.propTypes = {
   value: PropTypes.shape({
