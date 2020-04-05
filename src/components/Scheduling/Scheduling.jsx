@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader } from '@material-ui/core';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
@@ -97,27 +97,28 @@ SchedulingTypeButtons.propTypes = {
 
 function Scheduling({ onChange }) {
   const classes = useStyles();
-  const [schedulingData, setSchedulingData] = useState(SchedulingData);
   const [selectedType, setSelectedType] = useState(Object.keys(SchedulingData)[0]);
-  const selectedData = schedulingData[selectedType];
+  const selectedData = SchedulingData[selectedType];
 
-  const updateOnChange = (newValue) => {
-    const updatedData = { ...selectedData, value: { newValue } };
-    setSchedulingData((data) => ({ ...data, [selectedType]: updatedData }));
-    console.log(newValue);
-    if (onChange) onChange(newValue);
+  const onValueChange = (newValue) => {
+    onChange({ type: selectedType, value: newValue });
   };
+
+  useEffect(() => { onValueChange(selectedData.value); });
 
   return (
     <Card className={classes.card}>
       <CardHeader title="Skejuling" />
       <SchedulingTypeButtons selectedType={selectedType} onChange={setSelectedType} />
-      <selectedData.component value={selectedData.value} onChange={updateOnChange} />
+      <selectedData.component value={selectedData.value} onChange={onValueChange} />
     </Card>
   );
 }
 Scheduling.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+};
+Scheduling.defaultProps = {
+  onChange: () => {},
 };
 
 export default Scheduling;
