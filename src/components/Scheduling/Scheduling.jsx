@@ -1,42 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader } from '@material-ui/core';
-import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
 import useStyles from './style';
-import ChileArg from '../ChileArg/ChileArg';
+import ChileForm from '../ChileForm';
 
 
 function OneTimeScheduling({ value, onChange }) {
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <KeyboardDatePicker
-        label="Date"
-        value={value.date}
-        format="dd/MM/yyyy"
-        margin="normal"
-        variant="inline"
-        onChange={(date) => onChange({ date })}
-      />
-      <KeyboardTimePicker
-        label="Time"
-        value={value.time}
-        margin="normal"
-        variant="inline"
-        onChange={(time) => onChange({ time })}
-      />
-    </MuiPickersUtilsProvider>
+    <ChileForm
+      initialArgs={[
+        { type: 'date', name: 'date', value: value.date },
+        { type: 'time', name: 'time', value: value.time }]}
+      onFormUpdate={onChange}
+    />
   );
-  // return (
-  //   <div>
-  //     <span>Date </span>
-  //     <DatePicker value={value.date} onChange={(date) => onChange({ date })} />
-  //     <br />
-  //     <span>Hour</span>
-  //     <TimePicker value={value.time} onChange={(time) => onChange({ time })} disableClock />
-  //   </div>
-  // );
 }
 OneTimeScheduling.propTypes = {
   value: PropTypes.shape({
@@ -47,17 +25,20 @@ OneTimeScheduling.propTypes = {
 };
 function RepeatingScheduling({ value, onChange }) {
   return (
-    <div>
-      <OneTimeScheduling value={value} onChange={onChange} />
-      <br />
-      <ChileArg
-        name="interval"
-        type="int"
-        value={value.interval}
-        nickname="Interval (in days)"
-        onValueChange={(interval) => onChange({ interval })}
-      />
-    </div>
+    <ChileForm
+      initialArgs={[
+        {
+          type: 'int',
+          name: 'interval',
+          value: value.interval,
+          nickname: 'Interval (days)',
+          required: true,
+        },
+        { type: 'date', name: 'date', value: value.date },
+        { type: 'time', name: 'time', value: value.time },
+      ]}
+      onFormUpdate={onChange}
+    />
   );
 }
 RepeatingScheduling.propTypes = {
@@ -72,25 +53,21 @@ function OnNewSupplyScheduling() {
   return <p>OnNewSupply</p>;
 }
 
-const SchedulingTypes = {
+const SchedulingData = {
   ONE_TIME: {
     name: 'One Time',
     component: OneTimeScheduling,
-    defaultScheduling: () => ({ date: new Date(), time: new Date() }),
+    value: { date: new Date(), time: new Date() },
   },
   REPEATING: {
     name: 'Repeating',
     component: RepeatingScheduling,
-    defaultScheduling: () => ({
-      date: new Date(),
-      time: new Date(),
-      interval: 7, // in days
-    }),
+    value: { date: new Date(), time: new Date(), interval: 7 },
   },
   ON_NEW_SUPPLY: {
     name: 'On New Supply',
     component: OnNewSupplyScheduling,
-    defaultScheduling: () => ({ date: new Date(), time: new Date() }), // start date
+    value: {},
   },
 };
 
@@ -103,9 +80,9 @@ function SchedulingTypeButtons({ selectedType, onChange }) {
 
   return (
     <ToggleButtonGroup exclusive value={selectedType} onChange={handleChange}>
-      {Object.values(SchedulingTypes).map((schedulingType) => (
-        <ToggleButton value={schedulingType} key={schedulingType.name}>
-          {schedulingType.name}
+      {Object.entries(SchedulingData).map((scheduling) => (
+        <ToggleButton value={scheduling[0]} key={scheduling[0]}>
+          {scheduling[1].name}
         </ToggleButton>
       ))}
     </ToggleButtonGroup>
@@ -113,30 +90,29 @@ function SchedulingTypeButtons({ selectedType, onChange }) {
 }
 
 SchedulingTypeButtons.propTypes = {
-  selectedType: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    component: PropTypes.func.isRequired,
-  }).isRequired,
+  selectedType: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
 
 function Scheduling({ onChange }) {
   const classes = useStyles();
-  const [schedulingType, setSchedulingType] = useState(SchedulingTypes.ONE_TIME);
-  const [schedulingValue, setSchedulingValue] = useState(schedulingType.defaultScheduling());
+  const [schedulingData, setSchedulingData] = useState(SchedulingData);
+  const [selectedType, setSelectedType] = useState(Object.keys(SchedulingData)[0]);
+  const selectedData = schedulingData[selectedType];
 
-  const handlePartialChange = (val) => setSchedulingValue((current) => ({ ...current, ...val }));
-
-  useEffect(() => setSchedulingValue(schedulingType.defaultScheduling()), [schedulingType]);
-  useEffect(() => (onChange || ((a) => { console.log(a); }))({ schedulingType, schedulingValue }),
-    [onChange, schedulingType, schedulingValue]);
+  const updateOnChange = (newValue) => {
+    const updatedData = { ...selectedData, value: { newValue } };
+    setSchedulingData((data) => ({ ...data, [selectedType]: updatedData }));
+    console.log(newValue);
+    if (onChange) onChange(newValue);
+  };
 
   return (
     <Card className={classes.card}>
       <CardHeader title="Skejuling" />
-      <SchedulingTypeButtons selectedType={schedulingType} onChange={setSchedulingType} />
-      <schedulingType.component value={schedulingValue} onChange={handlePartialChange} />
+      <SchedulingTypeButtons selectedType={selectedType} onChange={setSelectedType} />
+      <selectedData.component value={selectedData.value} onChange={updateOnChange} />
     </Card>
   );
 }

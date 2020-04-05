@@ -51,12 +51,22 @@ function ChileForm({
   );
 }
 
-// TODO: Doc this properly
+function mutualRequiredProps(otherProp, propType) {
+  return function checkProp(props, propName, componentName) {
+    return (props[propName] == null) !== (props[otherProp] == null)
+      ? new Error(`In ${componentName} expected either both ${propName} and ${otherProp} or none of them.`)
+      : propType(props, propName, componentName);
+  };
+}
 ChileForm.propTypes = {
   initialArgs: PropTypes.arrayOf(PropTypes.shape(ChileArg.propTypes)).isRequired,
   onFormUpdate: PropTypes.func.isRequired,
-  completeButton: PropTypes.string.isRequired,
-  onComplete: PropTypes.func.isRequired,
+  completeButton: mutualRequiredProps('onComplete', PropTypes.string),
+  onComplete: mutualRequiredProps('completeButton', PropTypes.func),
+};
+ChileForm.defaultProps = {
+  completeButton: null,
+  onComplete: null,
 };
 
 export default ChileForm;
