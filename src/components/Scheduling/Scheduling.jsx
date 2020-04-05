@@ -100,11 +100,9 @@ function Scheduling({ onChange }) {
   const [selectedType, setSelectedType] = useState(Object.keys(SchedulingData)[0]);
   const selectedData = SchedulingData[selectedType];
 
-  const onValueChange = (newValue) => {
-    onChange({ type: selectedType, value: newValue });
-  };
+  const onValueChange = (newValue) => onChange({ type: selectedType, value: newValue });
 
-  useEffect(() => { onValueChange(selectedData.value); });
+  useEffect(() => onValueChange(selectedData.value));
 
   return (
     <Card className={classes.card}>
