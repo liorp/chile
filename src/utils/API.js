@@ -7,7 +7,8 @@ const api = axios.create({
 });
 
 api.fetchResource = async (resource, id) => {
-  const response = await api.get(`/${resource}/${id}`);
+  const requestId = id ? `/${id}` : '';
+  const response = await api.get(`/${resource}${requestId}`);
   return response.data;
 };
 
