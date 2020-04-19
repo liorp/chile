@@ -65,7 +65,7 @@ function TopBar() {
   }, [location]);
 
   return (
-    <AppBar position="fixed" className={classes.appBar} color="paper">
+    <AppBar position="fixed" className={classes.appBar} color="inherit">
       <Toolbar>
         <IconButton ref={anchorRef} color={notificationsPaneOpened ? 'primary' : 'inherit'} onClick={handleNotificationsPaneToggle}>
           <Badge badgeContent={4} color="secondary">

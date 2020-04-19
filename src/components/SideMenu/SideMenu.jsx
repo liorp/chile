@@ -4,6 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import List from '@material-ui/core/List';
@@ -23,7 +24,7 @@ const mainMenuItems = (
   <div>
     <ListSubheader>Main Menu</ListSubheader>
     <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon />} />
-    <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon />} />
+    <ListItemLink to="/table?name=shipments" primary="Shipments" icon={<LocalShippingIcon />} />
     <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon />} />
     <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon />} />
   </div>
@@ -99,7 +100,7 @@ function SideMenu() {
           </ListItem>
         </li>
         <li>
-          <ListItem>
+          <ListItem component="div">
             <ListItemText>
               <Typography variant="caption">
                 v

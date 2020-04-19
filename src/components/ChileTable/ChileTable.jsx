@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MaterialTable from 'material-table';
 import { useLocation, useHistory } from 'react-router-dom';
@@ -7,6 +7,19 @@ import TablePagination from '@material-ui/core/TablePagination';
 import tableNameToComponent from '../Tables';
 import { useChileDialog } from '../ChileDialog';
 import useStyles from './style';
+import api from '../../utils';
+
+/**
+ * data = {
+ *   filters: []
+ *   orderBy: undefined
+ *   orderDirection: ""
+ *   page: 1
+ *   pageSize: 5
+ *   search: ""
+ *   totalCount: 1
+ * }
+ */
 
 
 function ChileTable({ tableName }) {
@@ -32,25 +45,25 @@ function ChileTable({ tableName }) {
     }
     return c;
   });
+  const data = useCallback((query) => api.mockFetchResource({ resource: realTableName, ...query }),
+    [realTableName]);
 
   return (
     <Grow in>
       <div className={classes.root}>
         <MaterialTable
           columns={columns}
-          data={[
-            {
-              id: 1, name: 'Mehmet1', surname: 'Baran', birthYear: 1987, birthCity: 63,
-            },
-            {
-              id: 2, name: 'Mehmet2', surname: 'Baran', birthYear: 1987, birthCity: 63,
-            },
-          ]}
+          data={data}
           actions={table.actions || []}
           title={table.title}
           options={{
             actionsColumnIndex: -1,
             pageSizeOptions: [5, 15, 40],
+            filtering: true,
+            search: true,
+            filterCellStyle: {
+              textAlign: 'center',
+            },
             ...table.options,
           }}
           components={{
@@ -65,8 +78,12 @@ function ChileTable({ tableName }) {
   );
 }
 
+ChileTable.defaultProps = {
+  tableName: '',
+};
+
 ChileTable.propTypes = {
-  tableName: PropTypes.string.isRequired,
+  tableName: PropTypes.string,
 };
 
 export default ChileTable;

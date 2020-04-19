@@ -3,33 +3,26 @@ import React from 'react';
 const ProductsTable = (chileDialog, history) => ({
   title: 'Products',
   columns: [
-    { title: 'Adı', field: 'name' },
     {
-      title: 'Soyadı',
-      field: 'surname',
+      title: 'Name',
+      field: 'name',
     },
     {
-      title: 'Doğum Yılı',
-      field: 'birthYear',
-      cellStyle: {
-        textAlign: 'center',
-      },
-      headerStyle: {
-        textAlign: 'center',
-      },
+      title: 'Type',
+      field: 'type',
+      lookup: { 0: 'first type', 1: 'second type' },
     },
     {
-      title: 'Doğum Yeri',
-      field: 'birthCity',
-      lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+      title: 'Price',
+      field: 'price',
     },
   ],
   actions: [
-    {
+    () => ({
       icon: 'add',
       tooltip: 'Create Invoice',
-    },
-    {
+    }),
+    () => ({
       icon: 'visibility',
       tooltip: 'View Detail',
       onClick: (event, rowData) => {
@@ -54,25 +47,25 @@ const ProductsTable = (chileDialog, history) => ({
         }).catch(() => {
         });
       },
-    },
-    {
+    }),
+    () => ({
       icon: 'info',
       tooltip: 'View Detail',
       onClick: (event, rowData) => {
         // Do save operation
         history.push(`/product/${rowData.id}`);
       },
-    },
-    {
+    }),
+    () => ({
       icon: 'save',
       tooltip: 'Export to XML',
       isFreeAction: true,
-    },
-    {
+    }),
+    () => ({
       icon: 'add',
       tooltip: 'Create',
       isFreeAction: true,
-    },
+    }),
   ],
 });
 
