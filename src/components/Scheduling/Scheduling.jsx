@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader } from '@material-ui/core';
 import { ToggleButtonGroup, ToggleButton } from '@material-ui/lab';
@@ -73,10 +73,10 @@ const SchedulingData = {
 
 
 function SchedulingTypeButtons({ selectedType, onChange }) {
-  const handleChange = (event, value) => {
+  const handleChange = useCallback((event, value) => {
     // value is null when nothing is selected, so not allowing that
     if (value != null) onChange(value);
-  };
+  }, [onChange]);
 
   return (
     <ToggleButtonGroup exclusive value={selectedType} onChange={handleChange}>
@@ -100,9 +100,12 @@ function Scheduling({ onChange }) {
   const [selectedType, setSelectedType] = useState(Object.keys(SchedulingData)[0]);
   const selectedData = SchedulingData[selectedType];
 
-  const onValueChange = (newValue) => onChange({ type: selectedType, value: newValue });
+  const onValueChange = useCallback(
+    (newValue) => onChange({ type: selectedType, value: newValue }),
+    [onChange, selectedType],
+  );
 
-  useEffect(() => onValueChange(selectedData.value));
+  useEffect(() => onValueChange(selectedData.value), [onValueChange, selectedData]);
 
   return (
     <Card className={classes.card}>

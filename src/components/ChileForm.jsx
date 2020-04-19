@@ -12,7 +12,7 @@ function ChileForm({
     { ...state, [arg.name]: arg.value || null }), {}));
 
   // TODO: Maybe use formik?
-  useEffect(() => onFormUpdate(args));
+  useEffect(() => onFormUpdate(args), [onFormUpdate, args]);
 
   const getChileArgs = () => initialArgs.map((arg) => (
     <ChileArg
