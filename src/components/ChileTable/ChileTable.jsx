@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MaterialTable from 'material-table';
 import { useLocation, useHistory } from 'react-router-dom';
@@ -47,35 +47,47 @@ function ChileTable({ tableName }) {
   });
   const data = useCallback((query) => api.mockFetchResource({ resource: realTableName, ...query }),
     [realTableName]);
+  const tableRef = useRef(null);
+  useEffect(() => {
+    if (tableRef.current) {
+      tableRef.current.onQueryChange();
+    }
+  }, [realTableName, tableRef]);
 
-  return (
-    <Grow in>
-      <div className={classes.root}>
-        <MaterialTable
-          columns={columns}
-          data={data}
-          actions={table.actions || []}
-          title={table.title}
-          options={{
-            actionsColumnIndex: -1,
-            pageSizeOptions: [5, 15, 40],
-            filtering: true,
-            search: true,
-            filterCellStyle: {
-              textAlign: 'center',
-            },
-            ...table.options,
-          }}
-          components={{
-            Pagination: (props) => (
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              <TablePagination {...props} className={classes.pagination} />
-            ),
-          }}
-        />
-      </div>
-    </Grow>
+  const ChileTableInner = React.useMemo(
+    () => React.forwardRef((props, ref) => (
+      <Grow in>
+        <div className={classes.root}>
+          <MaterialTable
+            ref={ref}
+            columns={columns}
+            data={data}
+            actions={table.actions || []}
+            title={table.title}
+            options={{
+              actionsColumnIndex: -1,
+              pageSizeOptions: [5, 15, 40],
+              filtering: true,
+              search: true,
+              filterCellStyle: {
+                textAlign: 'center',
+              },
+              ...table.options,
+            }}
+            components={{
+              Pagination: (paginationProps) => (
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                <TablePagination {...paginationProps} className={classes.pagination} />
+              ),
+            }}
+          />
+        </div>
+      </Grow>
+    )),
+    [classes.pagination, classes.root, columns, data, table.actions, table.options, table.title],
   );
+
+  return <ChileTableInner ref={tableRef} />;
 }
 
 ChileTable.defaultProps = {
