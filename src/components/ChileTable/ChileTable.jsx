@@ -29,7 +29,7 @@ function ChileTable({ tableName }) {
   const dialog = useChileDialog();
 
   const searchParams = new URLSearchParams(location.search);
-  const realTableName = searchParams.get('name') || tableName;
+  const realTableName = tableName || searchParams.get('name');
   const table = tableNameToComponent[realTableName](dialog, history);
   const columns = table.columns.map((column) => {
     const c = column;
@@ -79,7 +79,7 @@ function ChileTable({ tableName }) {
 }
 
 ChileTable.defaultProps = {
-  tableName: '',
+  tableName: null,
 };
 
 ChileTable.propTypes = {
