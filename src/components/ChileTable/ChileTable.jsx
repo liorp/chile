@@ -10,7 +10,7 @@ import useStyles from './style';
 import api from '../../utils';
 
 /**
- * data = {
+ * query = {
  *   filters: []
  *   orderBy: undefined
  *   orderDirection: ""
