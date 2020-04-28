@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -20,16 +20,16 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
   },
-  chileLogo: {
-    '& span': {
-      fontSize: '100px',
-    },
-  },
-  chileName: {
+  homePageButton: {
+    backgroundColor: 'transparent',
     '& span': {
       fontSize: '30px',
       textTransform: 'none',
       fontFamily: ['"Pacifico"', 'cursive'].join(', '),
+      transition: '1s',
+      '&:hover :first-child:first-child': {
+        transform: 'rotate(360deg)',
+      },
     },
   },
 }));

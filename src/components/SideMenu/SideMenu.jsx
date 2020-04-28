@@ -4,7 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import LocalShipping from '@material-ui/icons/LocalShipping';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import List from '@material-ui/core/List';
@@ -13,6 +13,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Typography from '@material-ui/core/Typography';
 import { useChileDialog } from '../ChileDialog';
 import ListItemLink from '../LinkListItem';
 import useStyles from './style';
@@ -21,9 +22,9 @@ import packageJson from '../../../package.json';
 
 const mainMenuItems = (
   <div>
-    <ListSubheader inset>Main Menu</ListSubheader>
+    <ListSubheader>Main Menu</ListSubheader>
     <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon />} />
-    <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon />} />
+    <ListItemLink to="/table?name=shipments" primary="Shipments" icon={<LocalShippingIcon />} />
     <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon />} />
     <ListItemLink to="/table?name=products" primary="Products" icon={<ShoppingCartIcon />} />
   </div>
@@ -31,10 +32,10 @@ const mainMenuItems = (
 
 const secondaryMenuItems = (
   <div>
-    <ListSubheader inset>Quick Access</ListSubheader>
+    <ListSubheader>Quick Access</ListSubheader>
     <ListItemLink to="/add-a-camera" primary="Add a camera" icon={<AddAPhotoIcon />} />
     <ListItemLink to="/create-new-product" primary="Create A New Product" icon={<ShoppingCartIcon />} />
-    <ListItemLink to="/new-delivery" primary="New Delivery" icon={<LocalShipping />} />
+    <ListItemLink to="/new-delivery" primary="New Delivery" icon={<LocalShippingIcon />} />
   </div>
 );
 
@@ -79,18 +80,11 @@ function SideMenu() {
         to="/home"
         disableRipple
         disableElevation
-        className={classes.chileLogo}
-      >
-        <span>🌶</span>
-      </Button>
-      <Button
-        component={RouterNavLink}
-        to="/home"
-        disableRipple
-        disableElevation
         variant="text"
-        className={classes.chileName}
+        className={classes.homePageButton}
       >
+        <span className={classes.chileLogo}>🌶</span>
+        &nbsp;
         <span>Chile</span>
       </Button>
       <Divider />
@@ -107,14 +101,16 @@ function SideMenu() {
           </ListItem>
         </li>
         <li>
-          <ListItem>
+          <ListItem component="div">
             <ListItemText>
-              v
-              {packageJson.version}
-              {' '}
-              (
-              {process.env.REACT_APP_ENVIRONMENT}
-              )
+              <Typography variant="caption">
+                v
+                {packageJson.version}
+                {' '}
+                (
+                {process.env.REACT_APP_ENVIRONMENT}
+                )
+              </Typography>
             </ListItemText>
           </ListItem>
         </li>

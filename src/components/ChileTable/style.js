@@ -5,6 +5,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     width: '100%',
   },
+  pagination: {
+    borderBottom: 0,
+  },
 }));
 
 export default useStyles;
