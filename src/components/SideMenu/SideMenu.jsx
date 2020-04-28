@@ -35,6 +35,7 @@ const secondaryMenuItems = (
     <ListSubheader>Quick Access</ListSubheader>
     <ListItemLink to="/add-a-camera" primary="Add a camera" icon={<AddAPhotoIcon />} />
     <ListItemLink to="/create-new-product" primary="Create A New Product" icon={<ShoppingCartIcon />} />
+    <ListItemLink to="/new-delivery" primary="New Delivery" icon={<LocalShippingIcon />} />
   </div>
 );
 

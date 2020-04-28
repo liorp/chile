@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {
   TextField, Select, MenuItem, Checkbox, FormControlLabel, InputLabel, FormControl,
 } from '@material-ui/core';
+import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import useStyles from './style';
 
 
@@ -21,7 +23,7 @@ function ChileArg({
           value={value}
           required={required}
           disabled={enabled == null ? false : !enabled}
-          onChange={(e) => onValueChange(e.target.value)}
+          onChange={(e) => onValueChange(parseInt(e.target.value, 10))}
         />
       );
     case 'str':
@@ -42,7 +44,7 @@ function ChileArg({
           control={
             (
               <Checkbox
-                checked={value}
+                checked={value || false}
                 required={required}
                 disabled={enabled == null ? false : !enabled}
                 onChange={(e) => onValueChange(e.target.checked)}
@@ -68,6 +70,33 @@ function ChileArg({
           </Select>
         </FormControl>
       );
+    case 'date':
+      return (
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            label={label}
+            value={value}
+            disabled={enabled == null ? false : !enabled}
+            format="dd/MM/yyyy"
+            margin="normal"
+            variant="inline"
+            onChange={(date) => onValueChange(date)}
+          />
+        </MuiPickersUtilsProvider>
+      );
+    case 'time':
+      return (
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardTimePicker
+            label={label}
+            value={value}
+            disabled={enabled == null ? false : !enabled}
+            margin="normal"
+            variant="inline"
+            onChange={(time) => onValueChange(time)}
+          />
+        </MuiPickersUtilsProvider>
+      );
     default:
       return <span>InvalidArgType!!!</span>;
   }
@@ -75,21 +104,23 @@ function ChileArg({
 
 ChileArg.propTypes = {
   name: PropTypes.string.isRequired,
-  nickname: PropTypes.string.isRequired,
+  nickname: PropTypes.string,
   type: PropTypes.string.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   value: PropTypes.any,
   enabled: PropTypes.bool,
   required: PropTypes.bool,
   options: PropTypes.string,
-  onValueChange: PropTypes.func.isRequired,
+  onValueChange: PropTypes.func,
 };
 
 ChileArg.defaultProps = {
+  nickname: null,
   value: null,
   enabled: null,
   required: null,
   options: null,
+  onValueChange: () => {},
 };
 
 export default ChileArg;
